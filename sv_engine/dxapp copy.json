@@ -1,0 +1,104 @@
+{
+  "name": "sv_engine",
+  "title": "Structural Variation Engine",
+  "summary": "This applet use Structural Variation Engine",
+  "dxapi": "1.0.0",
+  "inputSpec": [
+    {
+      "name": "command_option",
+      "label": "command argument for SVE: align/realign/call/merge",
+      "help": "align/realign/call/merge",
+      "class": "string",
+      "optional": false
+    },
+    {
+      "name": "call_option",
+      "label": "caller option for calling SV: breakdancer|breakseq|cnvnator|hydra|delly|lumpy|cnmops or all",
+      "help": "breakdancer|breakseq|cnvnator|hydra|delly|lumpy|cnmops or all",
+      "class": "string",
+      "optional": true
+    },
+    {
+      "name": "genome_build",
+      "label": "genome_build: hg19|hg38|others",
+      "help": "hg19|hg38|others",
+      "class": "string",
+      "optional": false
+    },
+    {
+      "name": "ref_genome",
+      "label": "Reference Genome",
+      "help": "",
+      "class": "file",
+      "patterns": ["*.fa"],
+      "optional": false
+    },
+    {
+      "name": "ref_genome_index",
+      "label": "Reference Genome",
+      "help": "",
+      "class": "file",
+      "patterns": ["*.fai"],
+      "optional": false
+    },
+    {
+      "name": "sample_bam",
+      "label": "Sample Bam",
+      "help": "",
+      "class": "file",
+      "patterns": ["*.bam"],
+      "optional": false
+    },
+    {
+      "name": "sample_bam_index",
+      "label": "Sample Bam",
+      "help": "",
+      "class": "file",
+      "patterns": ["*.bai"],
+      "optional": false
+    },
+    {
+      "name": "cmd_sh",
+      "label": "shell script",
+      "help": "",
+      "class": "file",
+      "patterns": ["*.sh"],
+      "optional": false
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "output",
+      "label": "Output Files",
+      "help": "",
+      "class": "array:file",
+      "patterns": ["*"]
+    }
+  ],
+  "runSpec": {
+    "file": "src/code.sh",
+    "release": "16.04",
+    "interpreter": "bash",
+    "timeoutPolicy": {
+      "*": {
+        "hours": 48
+      }
+    },
+    "distribution": "Ubuntu"    
+  },
+  "access": {
+    "project": "CONTRIBUTE",
+    "network": [
+      "*"
+    ]
+  },
+  "regionalOptions": {
+    "aws:us-east-1": {
+      "systemRequirements": {
+        "*": {
+          "instanceType": "mem2_ssd1_x8"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "name": "ming_genomic_victorinox",
+  "title": "ming_genomic_victorinox",
+  "summary": "Ming Genomic Victorinox",
+  "dxapi": "1.0.0",
+  "version": "0.0.1",
+  "inputSpec": [
+    {
+      "name": "Input_array",
+      "label": "Input_array",
+      "class": "array:file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "cmd_sh",
+      "label": "cutomized script",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+       "*.sh"
+      ],
+      "help": ""
+    },
+    {
+      "name": "cmd_string",
+      "label": "cmd string for additional setting",
+      "class": "string",
+      "optional": true,
+      "default": "1000 2 1 1 0 30",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "output",
+      "label": "output file array",
+      "class": "array:file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    }
+  ],
+  "runSpec": {
+    "timeoutPolicy": {
+      "*": {
+        "hours": 48
+      }
+    },
+    "interpreter": "bash",
+    "release": "16.04",
+    "distribution": "Ubuntu",
+    "file": "src/ming_genomic_victorinox.sh",
+    "assetDepends": [
+      {
+        "project": "project-FF5gKb80KQgQ2ZbgKZ7GFPYj",
+        "folder": "/",
+        "name": "ubuntu-docker_asset",
+        "version": "0.0.1"
+      }
+    ]
+  },
+  "access": {
+     "network": [
+      "*"
+    ]
+  },
+  "regionalOptions": {
+    "aws:us-east-1": {
+      "systemRequirements": {
+        "*": {
+          "instanceType": "mem1_ssd1_x4"
+        }
+      }
+    }
+  }
+}

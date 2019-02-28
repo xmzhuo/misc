@@ -1,0 +1,61 @@
+{
+  "name": "picard_collect_wgs_metrics_ugc_fast_stringency",
+  "title": "Picard CollectWgsMetrics UGC FAST mode",
+  "summary": "Collect metrics about coverage and performance of whole genome sequencing (WGS) experiments. Modified by Ming",
+  "dxapi": "1.0.1",
+  "inputSpec": [
+    {
+      "name": "bam",
+      "label": "BAM file",
+      "help": "The BAM file containing the aligments on which metrics will be calculated.",
+      "class": "file",
+      "patterns": ["*.bam"],
+      "optional": false
+    },
+    {
+      "name": "genome_fastaindex",
+      "label": "Genome",
+      "help": "A bundle with the reference genome that the reads were mapped against.",
+      "class": "file",
+      "patterns": ["*.fasta-index.tar.gz"]
+    },
+    {
+      "name": "advanced_options",
+      "label": "Advanced options",
+      "help": "Advanced options to pass to CollectWgsMetrics",
+      "class": "string",
+      "optional": true,
+      "default": "USE_FAST_ALGORITHM=true VALIDATION_STRINGENCY=SILENT"
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "wgsmetrics_file",
+      "label": "WGS metrics",
+      "help": "A text file containing WGS metrics",
+      "class": "file",
+      "patterns": ["*.wgs_metrics"]
+    }
+  ],
+  "runSpec": {
+    "execDepends": [
+      {
+        "name": "openjdk-8-jre-headless"
+      }
+    ],
+    "file": "src/code.sh",
+    "release": "14.04",
+    "interpreter": "bash",
+    "distribution": "Ubuntu"
+  },
+  "details": {
+    "upstreamUrl": "http://broadinstitute.github.io/picard/",
+    "upstreamVersion": "1.124",
+    "upstreamAuthor": "broadinstitute"
+  },
+  "regionalOptions": {
+    "aws:us-east-1": {
+      "systemRequirements": {}
+    }
+  }
+}

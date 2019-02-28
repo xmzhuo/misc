@@ -1,0 +1,22 @@
+{
+  "name": "Exon Coverage from WGS",
+  "title": "Exon Coverage from WGS",
+  "stages": [
+    {
+      "id": "stage-FPQq3vj0zjYgF4ZP6G7KQKf6",
+      "executable": "applet-FPGQbJj0zjYv0z77P6bK7pj9",
+      "folder": "/",
+      "input": {
+        "ref_genome": {
+          "$dnanexus_link": "file-FKXZ25Q0zjYg7KB70f3xgFj2"
+        },
+        "mq": 20,
+        "bq": 20,
+        "cov": 10,
+        "gene_list": {
+          "$dnanexus_link": "file-FPGv3b80zjYgpf02J49Y31XF"
+        }
+      }
+    }
+  ]
+}

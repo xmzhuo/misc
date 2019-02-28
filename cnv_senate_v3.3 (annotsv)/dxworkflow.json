@@ -1,0 +1,138 @@
+{
+  "name": "cnv_senate_v3.3 (annotsv) ",
+  "title": "cnv_senate_v3.3 (annotsv) ",
+  "outputFolder": "/tcga reqeq/combined call",
+  "stages": [
+    {
+      "id": "stage-FJ8JVxj0KQgZ8FQK8vZk3GBq",
+      "executable": "applet-FJ8J6X00KQgq4qvk3P2g86Vj",
+      "input": {
+        "Reference_dict": {
+          "$dnanexus_link": "file-FGpY20j0KQgjbqP66ZFkZ48p"
+        },
+        "SNP_list": {
+          "$dnanexus_link": "file-FGpY3zQ0KQgZ6B286YFZ6pqK"
+        },
+        "Reference": {
+          "$dnanexus_link": "file-FGky5jj00Z1V8KK12Pj4fF49"
+        },
+        "PoNchoice": {
+          "$dnanexus_link": "file-FGFJz6002QpY9fv71j7Qqy14"
+        },
+        "Reference_fai": {
+          "$dnanexus_link": "file-FGkyB700Yp9kVpkX2P0BJx8f"
+        },
+        "Intervallist": {
+          "$dnanexus_link": "file-FGFK0qj02QpY9fv71j7Qv07p"
+        },
+        "cmd_sh": {
+          "$dnanexus_link": "file-FJJ1V000KQgQF2K1JBjZJ4fj"
+        }
+      }
+    },
+    {
+      "id": "stage-FJ1xZf80KQgpkqJ67G6Vvx98",
+      "executable": "applet-FJ1xYG00KQgX0Fy8PxbZ7p8B",
+      "input": {
+        "tumor": {
+          "$dnanexus_link": {
+            "inputField": "tumor",
+            "stage": "stage-FJ8JVxj0KQgZ8FQK8vZk3GBq"
+          }
+        },
+        "SNP_list": {
+          "$dnanexus_link": {
+            "inputField": "SNP_list",
+            "stage": "stage-FJ8JVxj0KQgZ8FQK8vZk3GBq"
+          }
+        },
+        "PoNcnvkit": {
+          "$dnanexus_link": "file-FGJK8j00V7v4Vb17083jxvfP"
+        },
+        "cmd_sh": {
+          "$dnanexus_link": "file-FJJ1V000KQgk2p36JG6XpJy7"
+        },
+        "tumor_bai": {
+          "$dnanexus_link": {
+            "inputField": "tumor_bai",
+            "stage": "stage-FJ8JVxj0KQgZ8FQK8vZk3GBq"
+          }
+        }
+      },
+      "systemRequirements": {
+        "*": {
+          "instanceType": "mem1_ssd1_x8"
+        }
+      }
+    },
+    {
+      "id": "stage-FJ2QgVj0KQgVy0vp43xYKV1B",
+      "executable": "app-cnvnator/0.0.3",
+      "input": {
+        "input_bai": {
+          "$dnanexus_link": {
+            "inputField": "tumor_bai",
+            "stage": "stage-FJ8JVxj0KQgZ8FQK8vZk3GBq"
+          }
+        },
+        "ref_fasta": {
+          "$dnanexus_link": {
+            "inputField": "Reference",
+            "stage": "stage-FJ8JVxj0KQgZ8FQK8vZk3GBq"
+          }
+        },
+        "input_bam": {
+          "$dnanexus_link": {
+            "inputField": "tumor",
+            "stage": "stage-FJ8JVxj0KQgZ8FQK8vZk3GBq"
+          }
+        }
+      }
+    },
+    {
+      "id": "stage-FJ2Qj900KQgzJkX68k7PB79B",
+      "executable": "app-swiss-army-knife/2.1.3",
+      "input": {
+        "cmd": "bcftools query -i 'FILTER=\"PASS\" && natorP1<=0.05 && natorP2<=0.05 && natorP3<=0.05 && natorP4<=0.05' -f'%CHROM %POS %INFO/END %INFO/natorP1 %ALT\\n' * | sed 's/<DUP>/1/; s/<DEL>/-1/' | sed '1ichrom loc.start loc.end num.mark seg.mean' | awk -vN=\"${in_prefix%.*}_cnvnator\" '{$1=(NR==1?\"ID\":N) OFS $1}1' | sed 's/ /\\t/g' > ${in_prefix%.*}_cnvnator.c.seg",
+        "in": [
+          {
+            "$dnanexus_link": {
+              "outputField": "cnvnator_vcf",
+              "stage": "stage-FJ2QgVj0KQgVy0vp43xYKV1B"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "stage-FJ1xZq00KQgQVz2Z74bVyxYB",
+      "executable": "applet-FJX60600KQgYv1gxK423Pyvy",
+      "input": {
+        "cmd_string": "1000 2 1 1 0 100",
+        "cnv_result": [
+          {
+            "$dnanexus_link": {
+              "outputField": "output",
+              "stage": "stage-FJ1xZf80KQgpkqJ67G6Vvx98"
+            }
+          },
+          {
+            "$dnanexus_link": {
+              "outputField": "out",
+              "stage": "stage-FJ2Qj900KQgzJkX68k7PB79B"
+            }
+          },
+          {
+            "$dnanexus_link": {
+              "outputField": "output",
+              "stage": "stage-FJ8JVxj0KQgZ8FQK8vZk3GBq"
+            }
+          }
+        ],
+        "cmd_sh": {
+          "$dnanexus_link": "file-FJb0yZj0KQgbgQx3KBx2XKQk"
+        }
+      }
+    }
+  ]
+}

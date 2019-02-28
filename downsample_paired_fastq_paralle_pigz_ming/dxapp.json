@@ -1,0 +1,84 @@
+{
+  "name": "downsample_paired_fastq_paralle_pigz_ming",
+  "title": "Downsample paired fastq file by size and parallel and pigz (Ming)",
+  "summary": "downsample paired fastq with seqtk to target size, parallerized for faster speed, optimize bottleneck, modified by Xinming Zhuo 20190214",
+  "dxapi": "1.0.0",
+  "inputSpec": [
+    {
+      "name": "read1",
+      "label": "Read1",
+      "help": "",
+      "class": "file",
+      "patterns": ["*.fastq.gz"],
+      "optional": false
+    },
+    {
+      "name": "read2",
+      "label": "Read2",
+      "help": "",
+      "class": "file",
+      "patterns": ["*.fastq.gz"],
+      "optional": false
+    },
+    {
+      "name": "size",
+      "label": "Downsample target size in GB",
+      "help": "",
+      "class": "float",
+      "optional": true,
+      "default": 150
+    },
+    {
+      "name": "seed",
+      "label": "Random seed",
+      "help": "",
+      "class": "int",
+      "optional": true,
+      "default": 100
+    },
+    {
+      "name": "thread",
+      "label": "Thread Number",
+      "help": "",
+      "class": "int",
+      "optional": true,
+      "default": 4
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "read1",
+      "label": "Downsampled Read1",
+      "help": "",
+      "class": "file",
+      "patterns": ["*.fastq.gz"]
+    },
+    {
+      "name": "read2",
+      "label": "Downsampled Read2",
+      "help": "",
+      "class": "file",
+      "patterns": ["*.fastq.gz"]
+    }
+  ],
+  "runSpec": {
+    "file": "src/code.py",
+    "release": "14.04",
+    "interpreter": "python2.7",
+    "timeoutPolicy": {
+      "*": {
+        "hours": 48
+      }
+    },
+    "distribution": "Ubuntu"
+  },
+  "regionalOptions": {
+    "aws:us-east-1": {
+      "systemRequirements": {
+        "*": {
+          "instanceType": "mem1_ssd1_x4"
+        }
+      }
+    }
+  }
+}
