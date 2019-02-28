@@ -1,0 +1,55 @@
+{
+  "name": "get_allbarcodes_and_samplesheet_ming",
+  "title": "Get all_barcodes.html and Samplesheet.csv File for Sample Run",
+  "summary": "This applet will use the fastq file generated from the UGC Bcl2Fastq Pipeline, determine the run ID and output the specific all_barcodes*.html and Samplesheet.csv file",
+  "properties": {
+    "replacedWith": "applet-FP49JPj0V44gfvf063yP4p4z"
+  },
+  "dxapi": "1.0.0",
+  "inputSpec": [
+    {
+      "name": "fastq",
+      "label": "FASTQ",
+      "help": "",
+      "class": "file",
+      "patterns": ["*"],
+      "optional": false
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "all_barcodes",
+      "label": "all_barcodes.html File",
+      "help": "",
+      "class": "file",
+      "patterns": ["*"]
+    },
+    {
+      "name": "sample_sheet",
+      "label": "SampleSheet.csv",
+      "help": "",
+      "class": "file",
+      "patterns": ["*"]
+    }
+  ],
+  "runSpec": {
+    "file": "src/code.sh",
+    "release": "14.04",
+    "interpreter": "bash",
+    "timeoutPolicy": {
+      "*": {
+        "hours": 48
+      }
+    },
+    "distribution": "Ubuntu"
+  },
+  "regionalOptions": {
+    "aws:us-east-1": {
+      "systemRequirements": {
+        "*": {
+          "instanceType": "mem1_ssd2_x2"
+        }
+      }
+    }
+  }
+}
