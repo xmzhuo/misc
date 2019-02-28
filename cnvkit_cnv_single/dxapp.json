@@ -1,0 +1,114 @@
+{
+  "name": "cnvkit_cnv_single",
+  "title": "cnvkit cnv single sample",
+  "summary": "use cnvkit to analyse cnv of a single sample",
+  "dxapi": "1.0.0",
+  "version": "0.0.1",
+  "inputSpec": [
+    {
+      "name": "tumor",
+      "label": "bam file for input",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*.bam"
+      ],
+      "help": ""
+    },
+    {
+      "name": "tumor_bai",
+      "label": "bam.bai file for input",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+        "*.bai"
+       ],
+      "help": ""
+     },
+     {
+       "name": "vcf",
+       "label": "sample vcf for input (somatic)",
+       "class": "file",
+       "optional": false,
+       "patterns": [
+           "*.vcf*"
+        ],
+       "help": ""
+     },
+     {
+       "name": "PoNcnvkit",
+       "label": "Name of PoN for cnvkit.cnn",
+       "class": "file",
+       "optional": false,
+       "patterns": [
+         "*.pon.cnn"
+       ],
+       "help": ""
+     },
+     {
+       "name": "SNP_list",
+       "label": "SNP_list for LoH allele fraction",
+       "class": "file",
+       "optional": false,
+       "patterns": [
+        "*.vcf"
+       ],
+       "help": ""
+     },
+     {
+       "name": "cmd_sh",
+       "label": "cutomized script",
+       "class": "file",
+       "optional": false,
+       "patterns": [
+        "*.sh"
+       ],
+       "help": ""
+     }
+  ],
+  "outputSpec": [
+   {
+    "name": "output",
+    "label": "gatk output",
+    "class": "array:file",
+    "patterns": [
+      "*"
+    ],
+    "help": ""
+   }
+  ],
+  "runSpec": {
+    "timeoutPolicy": {
+      "*": {
+        "hours": 24
+      }
+    },
+    "interpreter": "bash",
+    "release": "14.04",
+    "distribution": "Ubuntu",
+    "file": "src/cnvkit_cnv_single.sh",
+    "assetDepends": [
+      {
+        "project": "project-FF5gKb80KQgQ2ZbgKZ7GFPYj",
+        "folder": "/",
+        "name": "xmzhuo/genomic",
+        "version": "0.0.1"
+      }
+    ]
+  },
+  "access": {
+    "project": "CONTRIBUTE",
+    "network": [
+      "*"
+    ]
+  },
+  "regionalOptions": {
+    "aws:us-east-1": {
+      "systemRequirements": {
+        "*": {
+          "instanceType": "mem1_ssd1_x16"
+        }
+      }
+    }
+  }
+}

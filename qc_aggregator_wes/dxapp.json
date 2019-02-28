@@ -1,0 +1,73 @@
+{
+  "name": "qc_aggregator_wes",
+  "title": "QC Aggregator mod for wes 2019-1-30",
+  "summary": "Aggregates data produced from bcl2fastq and Picard metrics including alignment, WES hsmetric, variant calling, and summary. Modified by Xinming Zhuo 20190130",
+  "dxapi": "1.0.0",
+  "inputSpec": [
+    {
+      "name": "input_files",
+      "label": "bcl2fastq barcode output files and Picard output files",
+      "help": "",
+      "class": "array:file",
+      "patterns": ["*.html", "*.alignment_summary_metrics", "*.hsmetrics.txt", "*.variant_calling_detail_metrics", "*.get_callrate_gender.out"],
+      "optional": false
+    },
+    {
+      "name": "report_metrics",
+      "label": "Report Metrics",
+      "class": "boolean",
+      "optional": true,
+      "default": true
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "concat_out",
+      "label": "Concatenated input files",
+      "help": "",
+      "class": "file",
+      "patterns": ["*"]
+    },
+    {
+      "name": "csv_out",
+      "label": "information about whether certain data has either been reported or calculated",
+      "help": "",
+      "class": "file",
+      "patterns": ["*.csv"]
+    }
+  ],
+  "runSpec": {
+    "assetDepends": [
+      {
+        "project": "project-F97xgvj0B1XgVQk10qx6ZJGV",
+        "folder": "/workflows/assets",
+        "version": "release",
+        "name": "qc_aggregator_test_asset"
+      },
+      {
+        "project": "project-F97xgvj0B1XgVQk10qx6ZJGV",
+        "folder": "/workflows/assets",
+        "version": "0.0.1",
+        "name": "html2text"
+      }
+    ],
+    "file": "src/code.sh",
+    "release": "16.04",
+    "interpreter": "bash",
+    "timeoutPolicy": {
+      "*": {
+        "hours": 48
+      }
+    },
+    "distribution": "Ubuntu"
+  },
+  "regionalOptions": {
+    "aws:us-east-1": {
+      "systemRequirements": {
+        "*": {
+          "instanceType": "mem1_ssd1_x4"
+        }
+      }
+    }
+  }
+}

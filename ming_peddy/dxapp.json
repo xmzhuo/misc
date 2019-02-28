@@ -1,0 +1,81 @@
+{
+  "name": "ming_peddy",
+  "title": "peddy",
+  "summary": "This applet use brentp/peddy",
+  "dxapi": "1.0.1",
+  "inputSpec": [
+    {
+      "name": "vcf",
+      "label": "vcf.gz",
+      "help": "",
+      "class": "array:file",
+      "patterns": ["*.vcf.gz"],
+      "optional": false
+    },
+    {
+      "name": "vcf_tbi",
+      "label": "vcf.gz.tbi",
+      "help": "",
+      "class": "array:file",
+      "patterns": ["*.vcf.gz.tbi"],
+      "optional": false
+    }     
+  ],
+  "outputSpec": [
+    {
+      "name": "output",
+      "label": "Output Files",
+      "help": "",
+      "class": "array:file",
+      "patterns": ["*"]
+    },
+    {
+      "name": "ped",
+      "label": "peddy.ped",
+      "help": "",
+      "class": "array:file",
+      "patterns": ["*"]
+    },
+    {
+      "name": "call",
+      "label": "call.csv",
+      "help": "",
+      "class": "array:file",
+      "patterns": ["*"]
+    }
+  ],
+  "runSpec": {
+    "file": "src/code.sh",
+    "assetDepends": [
+      {
+        "project": "project-FF5gKb80KQgQ2ZbgKZ7GFPYj",
+        "folder": "/",
+        "name": "peddy-docker_asset",
+        "version": "0.0.1"
+      }
+    ],
+    "release": "16.04",
+    "interpreter": "bash",
+    "timeoutPolicy": {
+      "*": {
+        "hours": 48
+      }
+    },
+    "distribution": "Ubuntu"    
+  },
+  "access": {
+    "project": "CONTRIBUTE",
+    "network": [
+      "*"
+    ]
+  },
+  "regionalOptions": {
+    "aws:us-east-1": {
+      "systemRequirements": {
+        "*": {
+          "instanceType": "mem1_ssd1_x4"
+        }
+      }
+    }
+  }
+}

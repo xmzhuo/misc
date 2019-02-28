@@ -1,0 +1,87 @@
+{
+  "name": "ming_deepvariant_v1",
+  "title": "ming_deepvariant_v1",
+  "summary": "Ming Google DeepVariant 0.7.0",
+  "dxapi": "1.0.0",
+  "version": "0.0.2.1",
+  "inputSpec": [
+    {
+      "name": "Input_array",
+      "label": "Input_array",
+      "class": "array:file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "cmd_sh",
+      "label": "cutomized script",
+      "class": "file",
+      "optional": true,
+      "patterns": [
+       "*.sh"
+      ],
+      "help": ""
+    },
+    {
+      "name": "region",
+      "label": "region: format: chr20:10,000,000-10,010,000",
+      "class": "string",
+      "optional": true,
+      "default": "",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "N_SHARDS",
+      "label": "N_SHARDS thread cmd string for additional setting",
+      "class": "string",
+      "optional": true,
+      "default": "3",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "output",
+      "label": "output file array",
+      "class": "array:file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    }
+  ],
+  "runSpec": {
+    "timeoutPolicy": {
+      "*": {
+        "hours": 72
+      }
+    },
+    "interpreter": "bash",
+    "release": "16.04",
+    "distribution": "Ubuntu",
+    "file": "src/code.sh"
+  },
+  "access": {
+     "network": [
+      "*"
+    ]
+  },
+  "regionalOptions": {
+    "aws:us-east-1": {
+      "systemRequirements": {
+        "*": {
+          "instanceType": "mem1_ssd1_x16"
+        }
+      }
+    }
+  }
+}

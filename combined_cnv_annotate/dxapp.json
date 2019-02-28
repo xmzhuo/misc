@@ -1,0 +1,85 @@
+{
+  "name": "combined_cnv_annotate",
+  "title": "combined multi cnv with survivor, annotate with AnnotSV",
+  "summary": "combined multi cnv caller result with survivor, annotate with AnnotSV",
+  "dxapi": "1.0.0",
+  "version": "0.0.1",
+  "inputSpec": [
+    {
+      "name": "cnv_result",
+      "label": "cnv_caller_result_files",
+      "class": "array:file",
+      "optional": false,
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    },
+    {
+      "name": "cmd_sh",
+      "label": "cutomized script",
+      "class": "file",
+      "optional": false,
+      "patterns": [
+       "*.sh"
+      ],
+      "help": ""
+    },
+    {
+      "name": "cmd_string",
+      "label": "cmd for survivor combine setting",
+      "class": "string",
+      "optional": true,
+      "default": "1000 2 1 1 0 30",
+      "patterns": [
+        "*"
+      ],
+      "help": "This will merge all the vcf files specified in sample_files together using a maximum allowed distance of 1kb. Furthermore we ask SURVIVOR only to report calls supported by 2 callers and they have to agree on the type (1) and on the strand (1) of the SV. Note you can change this behavior by altering the numbers from 1 to e.g. 0. In addition, we told SURVIVOR to only compare SV that are at least 30bp long"
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "output",
+      "label": "survivor_output",
+      "class": "array:file",
+      "patterns": [
+        "*"
+      ],
+      "help": ""
+    }
+  ],
+  "runSpec": {
+    "timeoutPolicy": {
+      "*": {
+        "hours": 24
+      }
+    },
+    "interpreter": "bash",
+    "release": "14.04",
+    "distribution": "Ubuntu",
+    "file": "src/combined_cnv.sh",
+    "assetDepends": [
+      {
+        "project": "project-F97xgvj0B1XgVQk10qx6ZJGV",
+        "folder": "/",
+        "name": "xmzhuo/genomic:v0.1",
+        "version": "0.0.1"
+      }
+    ]
+  },
+  "access": {
+    "project": "CONTRIBUTE",
+    "network": [
+      "*"
+    ]
+  },
+  "regionalOptions": {
+    "aws:us-east-1": {
+      "systemRequirements": {
+        "*": {
+          "instanceType": "mem1_ssd1_x4"
+        }
+      }
+    }
+  }
+}
